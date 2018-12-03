@@ -16,7 +16,7 @@ class DetailViewController: UIViewController {
     var currentGreen: Double!
     var currentStepper: Double!
     
-var color: Crayon!
+    var color: Crayon!
     @IBOutlet weak var colorName: UILabel!
     @IBOutlet weak var redSlider: UISlider!
     @IBOutlet weak var redSliderValue: UILabel!
@@ -27,7 +27,7 @@ var color: Crayon!
     @IBOutlet weak var alphaStepper: UIStepper!
     @IBOutlet weak var alphaStepperValue: UILabel!
     
-  
+    
     
     
     
@@ -39,7 +39,7 @@ var color: Crayon!
         currentGreen = color.green / 255.0
         currentBlue = color.blue / 255.0
         currentStepper = 1
-   let myColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
+        let myColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
         setUpColor(color: myColor)
         
         //labels
@@ -78,11 +78,11 @@ var color: Crayon!
             self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
         case greenSlider:
             currentGreen = Double(sender.value)
-             self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
+            self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
             greenSliderValue.text = String(format: "%.1f", sender.value)
         case blueSlider:
-             currentBlue = Double(sender.value)
-           self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
+            currentBlue = Double(sender.value)
+            self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
             blueSliderValue.text = String(format: "%.1f", sender.value)
         default:
             break
@@ -91,7 +91,7 @@ var color: Crayon!
     
     @IBAction func stepperChanged(_ sender: UIStepper) {
         currentStepper = sender.value
-    alphaStepperValue.text = Double(sender.value).description
+        alphaStepperValue.text = Double(sender.value).description
         self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
     }
     
@@ -108,15 +108,15 @@ var color: Crayon!
         greenSliderValue.text = String(format: "%.1f", currentGreen)
         blueSliderValue.text = String(format: "%.1f", currentBlue)
         alphaStepperValue.text = "\(Double(currentStepper!))"
-
-       
+        
+        
         redSlider.value = Float(currentRed)
         greenSlider.value = Float(currentGreen)
         blueSlider.value = Float(currentBlue)
         alphaStepper.value = currentStepper
     }
     
-    func setUpColor(color: UIColor) {
+    private func setUpColor(color: UIColor) {
         view.backgroundColor = color
     }
 }
