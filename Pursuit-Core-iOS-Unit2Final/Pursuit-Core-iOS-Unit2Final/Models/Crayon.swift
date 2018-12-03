@@ -6,7 +6,7 @@
 //  Copyright © 2018 Alex Paul. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Crayon {
   var name: String
@@ -39,4 +39,8 @@ class Crayon {
     Crayon(name: "Blue Green", red: 13, green: 152, blue: 186, hex: "#0D98BA"),
     Crayon(name: "Blue Violet", red: 115, green: 102, blue: 189, hex: "#7366BD")
   ]
+    
+    public func color() -> UIColor {
+        return UIColor(displayP3Red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1.0)
+    }
 }

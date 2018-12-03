@@ -10,15 +10,15 @@ import UIKit
 
 class ColorViewController: UIViewController {
     @IBOutlet weak var myTableView: UITableView!
-    var colors = Crayon.allTheCrayons
+    private var colors = Crayon.allTheCrayons
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      myTableView.dataSource = self
+        myTableView.dataSource = self
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       guard let destination = segue.destination as? DetailViewController,
-        let indexpath = myTableView.indexPathForSelectedRow else {fatalError("nil segue")}
+        guard let destination = segue.destination as? DetailViewController,
+            let indexpath = myTableView.indexPathForSelectedRow else {fatalError("nil segue")}
         destination.color = colors[indexpath.row]
     }
     
@@ -27,16 +27,15 @@ class ColorViewController: UIViewController {
 
 extension ColorViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return colors.count
+        return colors.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = myTableView.dequeueReusableCell(withIdentifier: "colorCell", for: indexPath)
-       let color = colors[indexPath.row]
+        let cell = myTableView.dequeueReusableCell(withIdentifier: "colorCell", for: indexPath)
+        let color = colors[indexPath.row]
         cell.textLabel?.text = color.name
         cell.detailTextLabel?.text = color.hex
-        cell.backgroundColor = UIColor.init(displayP3Red: CGFloat(color.red) / 255, green: CGFloat(color.green) / 255, blue: CGFloat(color.blue) / 255, alpha: 1)
-        
+        cell.backgroundColor = color.color()
         return cell
     }
 }

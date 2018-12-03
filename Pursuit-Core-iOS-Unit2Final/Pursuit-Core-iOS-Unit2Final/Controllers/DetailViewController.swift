@@ -9,8 +9,12 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    
     @IBOutlet var myView: UIView!
+    var myColor: UIColor!
+    var currentRed: Double!
+    var currentBlue: Double!
+    var currentGreen: Double!
+    var currentStepper: Double!
     
 var color: Crayon!
     @IBOutlet weak var colorName: UILabel!
@@ -31,84 +35,88 @@ var color: Crayon!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(color.red) / 255, green: CGFloat(color.green) / 255, blue: CGFloat(color.blue) / 255, alpha: 1)
+        currentRed = color.red / Double(255)
+        currentGreen = color.green / 255.0
+        currentBlue = color.blue / 255.0
+        currentStepper = 1
+   let myColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
+        setUpColor(color: myColor)
+        
         //labels
         colorName.text = color.name
-        redSliderValue.text = "\(color.red)"
-        greenSliderValue.text = "\(color.green)"
-        blueSliderValue.text = "\(color.blue)"
-        alphaStepperValue.text = "\(alphaStepper.value)"
+        redSliderValue.text = String(format: "%.1f", currentRed)
+        greenSliderValue.text = String(format: "%.1f", currentGreen)
+        blueSliderValue.text = String(format: "%.1f", currentBlue)
+        alphaStepperValue.text = "\(Double(currentStepper!))"
         
         
         
         //sliders
         redSlider.maximumValue = 1
         redSlider.minimumValue = 0
-        redSlider.value = Float(color.red)
+        redSlider.value = Float(currentRed)
         
         greenSlider.maximumValue = 1
         greenSlider.minimumValue = 0
-        greenSlider.value = Float(color.green)
+        greenSlider.value = Float(currentGreen)
         
         blueSlider.maximumValue = 1
         blueSlider.minimumValue = 0
-        blueSlider.value = Float(color.blue)
+        blueSlider.value = Float(currentBlue)
         
         //stepper
         alphaStepper.maximumValue = 1
         alphaStepper.minimumValue = 0
-        alphaStepper.value = 1
+        alphaStepper.value = currentStepper
     }
     
     @IBAction func sliderChanged(_ sender: UISlider) {
         switch sender {
         case redSlider:
-            redSliderValue.text = Float(sender.value).description
-            self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(sender.value / 255), green: CGFloat(color.green) / 255, blue: CGFloat(color.blue) / 255, alpha: 1)
+            currentRed = Double(sender.value)
+            redSliderValue.text = String(format: "%.1f", sender.value)
+            self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
         case greenSlider:
-            self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(color.red) / 255, green: CGFloat(sender.value) / 255, blue: CGFloat(color.blue) / 255, alpha: 1)
-            greenSliderValue.text = Float(sender.value).description
+            currentGreen = Double(sender.value)
+             self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
+            greenSliderValue.text = String(format: "%.1f", sender.value)
         case blueSlider:
-            self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(color.red) / 255, green: CGFloat(color.green) / 255, blue: CGFloat(sender.value) / 255, alpha: 1)
-            blueSliderValue.text = Float(sender.value).description
+             currentBlue = Double(sender.value)
+           self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
+            blueSliderValue.text = String(format: "%.1f", sender.value)
         default:
             break
         }
     }
     
     @IBAction func stepperChanged(_ sender: UIStepper) {
+        currentStepper = sender.value
     alphaStepperValue.text = Double(sender.value).description
+        self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
     }
     
     @IBAction func resetButton(_ sender: UIButton) {
-     self.myView.backgroundColor = UIColor.init(displayP3Red: CGFloat(color.red) / 255, green: CGFloat(color.green) / 255, blue: CGFloat(color.blue) / 255, alpha: 1)
+        currentRed = color.red / Double(255)
+        currentGreen = color.green / 255.0
+        currentBlue = color.blue / 255.0
+        currentStepper = 1
+        let myColor = UIColor.init(displayP3Red: CGFloat(currentRed), green: CGFloat(currentGreen), blue: CGFloat(currentBlue), alpha: CGFloat(currentStepper))
+        setUpColor(color: myColor)
         
         colorName.text = color.name
-        redSliderValue.text = "\(color.red)"
-        greenSliderValue.text = "\(color.green)"
-        blueSliderValue.text = "\(color.blue)"
-        alphaStepperValue.text = "\(alphaStepper.value)"
-        
-        redSlider.maximumValue = 1
-        redSlider.minimumValue = 0
-        redSlider.value = Float(color.red)
-        
-        greenSlider.maximumValue = 1
-        greenSlider.minimumValue = 0
-        greenSlider.value = Float(color.green)
-        
-        blueSlider.maximumValue = 1
-        blueSlider.minimumValue = 0
-        blueSlider.value = Float(color.blue)
-        
-        
-        alphaStepper.maximumValue = 1
-        alphaStepper.minimumValue = 0
-        alphaStepper.value = 1
-    
-    
+        redSliderValue.text = String(format: "%.1f", currentRed)
+        greenSliderValue.text = String(format: "%.1f", currentGreen)
+        blueSliderValue.text = String(format: "%.1f", currentBlue)
+        alphaStepperValue.text = "\(Double(currentStepper!))"
+
+       
+        redSlider.value = Float(currentRed)
+        greenSlider.value = Float(currentGreen)
+        blueSlider.value = Float(currentBlue)
+        alphaStepper.value = currentStepper
     }
     
-    
-    
+    func setUpColor(color: UIColor) {
+        view.backgroundColor = color
+    }
 }
